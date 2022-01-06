@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*
+** =================================================================
+** Route usage:
+**  To show all the users, user list
+** 
+** History
+** 2022-01-06 Uday - Add route
+** =================================================================
+*/
+// Route::get('/users', [UsersController::class, 'showUsers']);
