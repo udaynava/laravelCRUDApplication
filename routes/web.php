@@ -62,7 +62,7 @@ Route::post('/users/add', [UsersController::class, 'addUser']);
 ** 2022-01-06 Uday - Add route
 ** =================================================================
 */
-Route::get('/users/{uid}', [UsersController::class, 'showEditUser']);
+Route::get('/users/{uid}', [UsersController::class, 'showEditUser'])->where('uid', '[0-9]+');
 
 /*
 ** =================================================================
@@ -73,7 +73,7 @@ Route::get('/users/{uid}', [UsersController::class, 'showEditUser']);
 ** 2022-01-06 Uday - Add route
 ** =================================================================
 */
-Route::post('/users/{uid}', [UsersController::class, 'editUser']);
+Route::post('/users/{uid}', [UsersController::class, 'editUser'])->where('uid', '[0-9]+');
 
 /*
 ** =================================================================
@@ -84,7 +84,7 @@ Route::post('/users/{uid}', [UsersController::class, 'editUser']);
 ** 2022-01-06 Uday - Add route
 ** =================================================================
 */
-Route::post('users/{user_id}/delete', [UsersController::class, 'deleteUser']);
+Route::post('users/{uid}/delete', [UsersController::class, 'deleteUser'])->where('uid', '[0-9]+');
 
 
 // Company Pages
@@ -131,7 +131,7 @@ Route::post('/companies/add', [CompaniesController::class, 'addCompany']);
 ** 2022-01-06 Uday - Add route
 ** =================================================================
 */
-Route::get('/companies/{compID}', [CompaniesController::class, 'showEditCompany']);
+Route::get('/companies/{compID}', [CompaniesController::class, 'showEditCompany'])->where('compID', '[0-9]+');
 
 /*
 ** =================================================================
@@ -142,7 +142,7 @@ Route::get('/companies/{compID}', [CompaniesController::class, 'showEditCompany'
 ** 2022-01-06 Uday - Add route
 ** =================================================================
 */
-Route::post('/companies/{compID}', [CompaniesController::class, 'editCompany']);
+Route::post('/companies/{compID}', [CompaniesController::class, 'editCompany'])->where('compID', '[0-9]+');
 
 /*
 ** =================================================================
@@ -153,4 +153,27 @@ Route::post('/companies/{compID}', [CompaniesController::class, 'editCompany']);
 ** 2022-01-06 Uday - Add route
 ** =================================================================
 */
-Route::post('companies/{compID}/delete', [CompaniesController::class, 'deleteCompany']);
+Route::post('companies/{compID}/delete', [CompaniesController::class, 'deleteCompany'])->where('compID', '[0-9]+');
+
+
+/*
+** =================================================================
+** Route usage:
+**  show assign users to company form
+** 
+** History
+** 2022-01-06 Uday - Add route
+** =================================================================
+*/
+Route::get('companies/usersToComp/{compID}', [CompaniesController::class, 'showAddUsersToCompany'])->where('compID', '[0-9]+');
+
+/*
+** =================================================================
+** Route usage:
+**  To add assigned users to company -POST
+** 
+** History
+** 2022-01-06 Uday - Add route
+** =================================================================
+*/
+Route::post('companies/usersToComp/{compID}', [CompaniesController::class, 'addUserToCompany'])->where('compID', '[0-9]+');

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\User_company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class CompaniesController extends Controller
 {
@@ -130,5 +131,45 @@ class CompaniesController extends Controller
         $compInfo = array();
         $compInfo['title'] = $inputs['title'];
         return $compInfo;
+    }
+
+    /*
+    ** ========================================================
+    ** Function: showAddUsersToCompany()
+    **
+    **  HISTORY
+    **  2022-01-06 Uday - Created.
+    ** ========================================================
+    */
+    public function showAddUsersToCompany($compID) {
+        $users = User::all()->toArray();
+        $company = Company::where('comp_id', $compID)->get()->toArray();
+
+        // To pass the in compact and to use efficiently in blade template
+        $company = $company[0];
+
+        $setUsers = DB::table('user_companies')->where('comp_id', $compID)->pluck('user_id')->toArray();
+
+        return view('companies.addUsersToCompany', compact('users', 'company', 'setUsers'));
+    }
+
+    /*
+    ** ========================================================
+    ** Function: addUserToCompany()
+    **
+    **  HISTORY
+    **  2022-01-06 Uday - Created.
+    ** ========================================================
+    */
+    public function addUserToCompany(Request $request, $compID) {
+        $inputs = $request->except('_token');
+        $setUsers = $inputs['setUsers'];
+        foreach($setUsers as $key => $uid) {
+            $userCompArray = array ();
+            $userCompArray['user_id'] = $uid;
+            $userCompArray['comp_id'] = $compID;
+            DB::table('user_companies')->insert($userCompArray);
+        }
+        return redirect('/companies')->with('message', 'Company Users Updated');
     }
 }

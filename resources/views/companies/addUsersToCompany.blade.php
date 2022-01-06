@@ -1,9 +1,9 @@
 {{--
 -- ========================================================
--- editUser.blade.php
+-- addUserstoCompany.blade.php
 --
 --  DESCRIPTION
---  This is the blade form for adding new user
+--  This is the blade form for linking users to company
 --
 --  TECHNICAL DOCUMENTATION
 --  @document
@@ -15,7 +15,7 @@
 --}}
 
 @php
-    $headLine = "Edit User";
+    $headLine = "Add Users to \"" . $company['title'] . "\"";
 @endphp
 
 @extends('layouts.default')
@@ -25,12 +25,11 @@
 
 @section('content')
     <div class="container">
-        <p class="lead text-center">Edit User or <a href="{{ url('/users') }}">Go Back</a> </p>
         <div class="form-area">
-            <form class="form-horizontal" role="form" method="POST" action="{{ url('users/' . $user->user_id) }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ url('companies/usersToComp/' . $company['comp_id']) }}">
                 {{ csrf_field() }}
                 <br style="clear:both">
-                @include('users.userForm', ['submitButton' => 'Save'])
+                @include('companies.usersToCompanyForm', ['submitButton' => 'Add'])
             </form>
         </div>
         @if ($errors->any())
@@ -44,3 +43,5 @@
         @endif
     </div>
 @stop
+
+{{-- <script src="{{url('js/companies/addUser.js')}}"></script> --}}

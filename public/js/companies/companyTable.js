@@ -26,7 +26,7 @@ function addCompany() {
 }
 
 function addUsersToComp(comp_id) {
-    location.href = window.location.href + '/' + 'addUsersToComp' + '/' + comp_id
+    location.href = window.location.href + '/' + 'usersToComp' + '/' + comp_id
 }
 
 function editCompany(comp_id) {
